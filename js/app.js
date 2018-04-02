@@ -1,7 +1,12 @@
 /*
  * Create a list that holds all of your cards
  */
+const cardDeck = document.querySelector('#deck');
+let cards = [...card];
 
+for (var i = 0; i < cards.length; i++){
+   cards[i].addEventListener("click", displayCard);
+};
 
 /*
  * Display the cards on the page
