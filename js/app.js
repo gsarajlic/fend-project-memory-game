@@ -1,35 +1,37 @@
 /*
  * Create a list that holds all of your cards
  */
+ let cardDeck = document.querySelector('#deck');
+  //document.getElementsByClassName('card');
+ let card = cardDeck.getElementsByTagName('li');
+ //push all cards to an Array
+ let cards = [...card];
+ //console.log(cards);
+ //elements to be shuffled
+ //let shuffleClass=[];
+let cardClass = [];
  //deck of cards
-let cardDeck = document.querySelector('#deck');
-// adding event listener on click for deck of cards
-cardDeck.addEventListener('click', respondToClick);
-// defining cardList variable
-const cardList = cardDeck.getElementsByTagName('li');
-//defining array of cards
-let cards = [];
-//push all cards to an Array
-for (var i = 0; i < cardList.length; i++) {
-    var arrValue = cardList[i].innerHTML;
-    cards.push(arrValue);
-}
+
+ // adding event listener on click for deck of cards
+ //cardDeck.addEventListener('click', respondToClick());
+ // defining classes of cards
 
 
 
 
 
 //  ******************************  S T A R T    G A M E  ******************************
+document.body.onLoad = startGame();
+cardClasses(card);
+console.log(cardClass.length);
 
-document.body.onload = startGame();
-
-function startGame(){
-    shuffle (cards);
-
-
-
-
+for (let i = 0; i < cardClass.length; i++){
+      if ((cardClass[i].length) > 1){
+            console.log(cardClass[i]);
+      }
 }
+
+
 
 
 
@@ -40,24 +42,27 @@ function startGame(){
 
 //  *******************************************  F U N C T I O N S  *******************************************
 
-// CARD RESPOND TO CLICK
+// CARD classes
+function cardClasses(element){
+  for (var i = 0; i < element.length; i++) {
+      cardClass.push(element[i].classList);
+  }
+}
+
+
+// CARD RESPOND TO CLICK AND DISPLAY CARD'S SYMBOL
 function respondToClick(evt) {
-    if (evt.target.nodeName === 'LI') {
-        console.log('LI element was clicked');
+    if (evt.target.nodeName == 'LI') {
+        evt.target.classList.toggle('open'); // add or remove class open to clicked element
+        //evt.target.classList.toggle('show'); // add or remove class show to clicked element
+        evt.target.classList.toggle('match'); // add or remove class show to clicked element
+        //evt.target.classList.toggle('card'); // add or remove class show to clicked element
+        console.log(evt.target);
     }
-}
-
-// DISPLAY CARD'S SYMBOL ON CLICK
-
-function toggleClass () {
+  }
 
 
-}
-
-
-
-
-
+//
 
 /*
  * Display the cards on the page
@@ -66,7 +71,6 @@ function toggleClass () {
  *   - add each card's HTML to the page
  */
 
-// Shuffle cards on document load
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -79,9 +83,31 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
+};
+
+
+// REMOVING CLASSES FROM CARDS
+function removeClasses(elements){
+  for (var i = 0; i < elements.length; i++) {
+   elements.classList.remove('match');
 }
+console.log(elements[i]);
+}
+
+
+
+// START GAME
+
+function startGame(){
+   let shuffledCards = shuffle(cards);
+   for (var i= 0; i < shuffledCards.length; i++){
+      [].forEach.call(shuffledCards, function(item){
+          	cardDeck.appendChild(item);
+      });
+   }
+}
+
 
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
