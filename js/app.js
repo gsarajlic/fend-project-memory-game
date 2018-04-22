@@ -1,37 +1,38 @@
 /*
  * Create a list that holds all of your cards
  */
+ //deck of cards
  let cardDeck = document.querySelector('#deck');
-  //document.getElementsByClassName('card');
- let card = cardDeck.getElementsByTagName('li');
- //push all cards to an Array
- let cards = [...card];
- //console.log(cards);
+ // adding event listener on click for deck of cards
+ cardDeck.addEventListener('click', respondToClick);
+ // defining card variable which contains all cards with class name .card
+ let card = cardDeck.children;
+ let cards = [...card]
+
+
+
  //elements to be shuffled
  //let shuffleClass=[];
-let cardClass = [];
- //deck of cards
-
- // adding event listener on click for deck of cards
- //cardDeck.addEventListener('click', respondToClick());
- // defining classes of cards
-
 
 
 
 
 //  ******************************  S T A R T    G A M E  ******************************
-document.body.onLoad = startGame();
-cardClasses(card);
-console.log(cardClass.length);
 
-for (let i = 0; i < cardClass.length; i++){
-      if ((cardClass[i].length) > 1){
-            console.log(cardClass[i]);
-      }
+document.body.addEventListener('click', startGame(), true);
+
+function startGame(){
+
+    cards = shuffle(cards);
+
+    for (var i = 0; i < cards.length; i++){
+        [].forEach.call(cards, function(item) {
+            cardDeck.appendChild(item);
+        });
+        cards[i].classList.remove("show", "open", "match");
+    }
+
 }
-
-
 
 
 
@@ -42,25 +43,15 @@ for (let i = 0; i < cardClass.length; i++){
 
 //  *******************************************  F U N C T I O N S  *******************************************
 
-// CARD classes
-function cardClasses(element){
-  for (var i = 0; i < element.length; i++) {
-      cardClass.push(element[i].classList);
-  }
-}
-
-
 // CARD RESPOND TO CLICK AND DISPLAY CARD'S SYMBOL
 function respondToClick(evt) {
-    if (evt.target.nodeName == 'LI') {
+    if (evt.target.nodeName === 'LI') {
         evt.target.classList.toggle('open'); // add or remove class open to clicked element
-        //evt.target.classList.toggle('show'); // add or remove class show to clicked element
+        evt.target.classList.toggle('show'); // add or remove class show to clicked element
         evt.target.classList.toggle('match'); // add or remove class show to clicked element
         //evt.target.classList.toggle('card'); // add or remove class show to clicked element
-        console.log(evt.target);
     }
-  }
-
+}
 
 //
 
@@ -88,33 +79,19 @@ function shuffle(array) {
 
 
 // REMOVING CLASSES FROM CARDS
+
 function removeClasses(elements){
   for (var i = 0; i < elements.length; i++) {
-   elements.classList.remove('match');
+   elements[i].classList.remove('open','show','match');
 }
-console.log(elements[i]);
 }
-
-
-
-// START GAME
-
-function startGame(){
-   let shuffledCards = shuffle(cards);
-   for (var i= 0; i < shuffledCards.length; i++){
-      [].forEach.call(shuffledCards, function(item){
-          	cardDeck.appendChild(item);
-      });
-   }
-}
-
-
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
 
 
 /*
  **  - set up the event listener for a card. If a card is clicked:
+
  *  - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
