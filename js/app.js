@@ -9,14 +9,6 @@
  let card = cardDeck.children;
  let cards = [...card]
 
-
-
- //elements to be shuffled
- //let shuffleClass=[];
-
-
-
-
 //  ******************************  S T A R T    G A M E  ******************************
 
 document.body.addEventListener('click', startGame(), true);
@@ -48,10 +40,9 @@ function respondToClick(evt) {
     if (evt.target.nodeName === 'LI') {
         evt.target.classList.toggle('open'); // add or remove class open to clicked element
         evt.target.classList.toggle('show'); // add or remove class show to clicked element
-        evt.target.classList.toggle('match'); // add or remove class show to clicked element
-        //evt.target.classList.toggle('card'); // add or remove class show to clicked element
     }
 }
+
 
 //
 
@@ -83,7 +74,37 @@ function shuffle(array) {
 function removeClasses(elements){
   for (var i = 0; i < elements.length; i++) {
    elements[i].classList.remove('open','show','match');
+    }
 }
+
+
+function openedCards(){
+  let opened = document.getElementsByClassName('open');
+  if (opened.length == 2){
+    var first = opened[0].firstElementChild.className;
+    var second = opened[1].firstElementChild.className;
+    first === second ? cardsMatch(opened) : cardsNotMatched(opened);
+
+  }
+}
+
+
+function cardsNotMatched(notMatched){
+  var arr = [].slice.call(notMatched);
+  arr.forEach(removeClasses(notMatched));
+}
+
+
+function cardsMatch(matchedElements){
+  var arr = [].slice.call(matchedElements);
+  arr.forEach (function(el){
+    el.classList.toggle('match');
+    el.classList.toggle('open');
+  })
+
+
+
+
 }
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
