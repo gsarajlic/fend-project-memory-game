@@ -91,7 +91,10 @@ function openedCards(){
 
 function cardsNotMatched(notMatched){
   var arr = [].slice.call(notMatched);
-  arr.forEach(removeClasses(notMatched));
+  arr.forEach (function(el){
+    el.classList.toggle('open');
+    el.classList.toggle('show');
+  })
 }
 
 
