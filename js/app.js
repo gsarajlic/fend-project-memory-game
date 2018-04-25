@@ -19,7 +19,7 @@ function startGame(){
 
     cards = shuffle(cards);
     cleanStart(cards);
-    twoCards();
+
 
 
 /*
@@ -44,12 +44,21 @@ function startGame(){
 
 //  *******************************************  F U N C T I O N S  *******************************************
 
+// RESPONDING TO EVERY CLICK AND RUN FUNTIONS
+
+
+
 // CARD RESPOND TO CLICK AND DISPLAY CARD'S SYMBOL
 function respondToClick(evt) {
     if (evt.target.nodeName === 'LI') {
         evt.target.classList.toggle('open'); // add or remove class open to clicked element
         evt.target.classList.toggle('show'); // add or remove class show to clicked element
+        console.log('aaaaaaa');
+        setTimeout(function() {
+          openedCards();
+        }, 1000);
     }
+
 }
 
 
@@ -133,14 +142,6 @@ function cleanStart(clean){
 
 // IF TWO CARDS ARE OPENED CHECK FOR MATCH
 
-function twoCards(){
-  let openArr = [];
-  openArr.push(this);
-  let len = openArr.length;
-  if(len === 2){
-      OpenedCards();
-  }
-};
 
 /*
 function cardOpen() {
