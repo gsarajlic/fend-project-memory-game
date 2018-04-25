@@ -53,7 +53,6 @@ function respondToClick(evt) {
     if (evt.target.nodeName === 'LI') {
         evt.target.classList.toggle('open'); // add or remove class open to clicked element
         evt.target.classList.toggle('show'); // add or remove class show to clicked element
-        console.log('aaaaaaa');
         setTimeout(function() {
           openedCards();
         }, 1000);
@@ -140,7 +139,8 @@ function cleanStart(clean){
   }
 }
 
-// IF TWO CARDS ARE OPENED CHECK FOR MATCH
+// NO CLICK ON CARDS DURING MATCHING
+
 
 
 /*
