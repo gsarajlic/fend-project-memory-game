@@ -9,6 +9,8 @@
  let card = cardDeck.children;
  let cards = [...card]
 
+
+
 //  ******************************  S T A R T    G A M E  ******************************
 
 document.body.addEventListener('click', startGame(), true);
@@ -16,7 +18,11 @@ document.body.addEventListener('click', startGame(), true);
 function startGame(){
 
     cards = shuffle(cards);
+    cleanStart(cards);
+    twoCards();
 
+
+/*
     for (var i = 0; i < cards.length; i++){
         [].forEach.call(cards, function(item) {
             cardDeck.appendChild(item);
@@ -24,6 +30,9 @@ function startGame(){
         cards[i].classList.remove("show", "open", "match");
     }
 
+*/
+
+//this bracket closes startgame function
 }
 
 
@@ -77,6 +86,7 @@ function removeClasses(elements){
     }
 }
 
+// THIS FUNCTION CHECKS IF TWO CARDS MATCH OR NOT
 
 function openedCards(){
   let opened = document.getElementsByClassName('open');
@@ -88,6 +98,7 @@ function openedCards(){
   }
 }
 
+// WHAT TO DO IF CARDS MATCH
 
 function cardsNotMatched(notMatched){
   var arr = [].slice.call(notMatched);
@@ -98,6 +109,8 @@ function cardsNotMatched(notMatched){
 }
 
 
+// WHAT TO DI IF CARDS DO NOT MATCH
+
 function cardsMatch(matchedElements){
   var arr = [].slice.call(matchedElements);
   arr.forEach (function(el){
@@ -105,10 +118,43 @@ function cardsMatch(matchedElements){
     el.classList.toggle('open');
   })
 
-
-
-
 }
+
+// CLEANING CLASSES OF THE WHOLE DECK (restart)
+
+function cleanStart(clean){
+  for (var i = 0; i < clean.length; i++){
+      [].forEach.call(clean, function(item) {
+          cardDeck.appendChild(item);
+      });
+      clean[i].classList.remove("show", "open", "match");
+  }
+}
+
+// IF TWO CARDS ARE OPENED CHECK FOR MATCH
+
+function twoCards(){
+  let openArr = [];
+  openArr.push(this);
+  let len = openArr.length;
+  if(len === 2){
+      OpenedCards();
+  }
+};
+
+/*
+function cardOpen() {
+    openedCards.push(this);
+    var len = openedCards.length;
+    if(len === 2){
+        moveCounter();
+        if(openedCards[0].type === openedCards[1].type){
+            matched();
+        } else {
+            unmatched();
+        }
+    }
+};
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
 
