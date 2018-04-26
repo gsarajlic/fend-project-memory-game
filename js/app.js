@@ -1,13 +1,13 @@
 /*
  * Create a list that holds all of your cards
  */
- //deck of cards
- let cardDeck = document.querySelector('#deck');
- // adding event listener on click for deck of cards
- cardDeck.addEventListener('click', respondToClick);
- // defining card variable which contains all cards with class name .card
- let card = cardDeck.children;
- let cards = [...card]
+//deck of cards
+let cardDeck = document.querySelector('#deck');
+// adding event listener on click for deck of cards
+cardDeck.addEventListener('click', respondToClick);
+// defining card variable which contains all cards with class name .card
+let card = cardDeck.children;
+let cards = [...card]
 
 
 
@@ -15,24 +15,13 @@
 
 document.body.addEventListener('click', startGame(), true);
 
-function startGame(){
+function startGame() {
 
-    cards = shuffle(cards);
-    cleanStart(cards);
+  cards = shuffle(cards);
+  cleanStart(cards);
 
 
-
-/*
-    for (var i = 0; i < cards.length; i++){
-        [].forEach.call(cards, function(item) {
-            cardDeck.appendChild(item);
-        });
-        cards[i].classList.remove("show", "open", "match");
-    }
-
-*/
-
-//this bracket closes startgame function
+  //this bracket closes startgame function
 }
 
 
@@ -50,13 +39,13 @@ function startGame(){
 
 // CARD RESPOND TO CLICK AND DISPLAY CARD'S SYMBOL
 function respondToClick(evt) {
-    if (evt.target.nodeName === 'LI') {
-        evt.target.classList.toggle('open'); // add or remove class open to clicked element
-        evt.target.classList.toggle('show'); // add or remove class show to clicked element
-        setTimeout(function() {
-          openedCards();
-        }, 1000);
-    }
+  if (evt.target.nodeName === 'LI') {
+    evt.target.classList.toggle('open'); // add or remove class open to clicked element
+    evt.target.classList.toggle('show'); // add or remove class show to clicked element
+    setTimeout(function() {
+      openedCards();
+    }, 1000);
+  }
 
 }
 
@@ -73,44 +62,44 @@ function respondToClick(evt) {
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-    return array;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+  return array;
 };
 
 
 // REMOVING CLASSES FROM CARDS
 
-function removeClasses(elements){
+function removeClasses(elements) {
   for (var i = 0; i < elements.length; i++) {
-   elements[i].classList.remove('open','show','match');
-    }
+    elements[i].classList.remove('open', 'show', 'match');
+  }
 }
 
 // THIS FUNCTION CHECKS IF TWO CARDS MATCH OR NOT
 
-function openedCards(){
+function openedCards() {
   let opened = document.getElementsByClassName('open');
-  if (opened.length == 2){
+  if (opened.length == 2) {
     var first = opened[0].firstElementChild.className;
     var second = opened[1].firstElementChild.className;
     first === second ? cardsMatch(opened) : cardsNotMatched(opened);
-
   }
 }
 
 // WHAT TO DO IF CARDS MATCH
 
-function cardsNotMatched(notMatched){
+function cardsNotMatched(notMatched) {
   var arr = [].slice.call(notMatched);
-  arr.forEach (function(el){
+  arr.forEach(function(el) {
     el.classList.toggle('open');
     el.classList.toggle('show');
   })
@@ -119,9 +108,9 @@ function cardsNotMatched(notMatched){
 
 // WHAT TO DI IF CARDS DO NOT MATCH
 
-function cardsMatch(matchedElements){
+function cardsMatch(matchedElements) {
   var arr = [].slice.call(matchedElements);
-  arr.forEach (function(el){
+  arr.forEach(function(el) {
     el.classList.toggle('match');
     el.classList.toggle('open');
   })
@@ -130,32 +119,17 @@ function cardsMatch(matchedElements){
 
 // CLEANING CLASSES OF THE WHOLE DECK (restart)
 
-function cleanStart(clean){
-  for (var i = 0; i < clean.length; i++){
-      [].forEach.call(clean, function(item) {
-          cardDeck.appendChild(item);
-      });
-      clean[i].classList.remove("show", "open", "match");
+function cleanStart(clean) {
+  for (var i = 0; i < clean.length; i++) {
+    [].forEach.call(clean, function(item) {
+      cardDeck.appendChild(item);
+    });
+    clean[i].classList.remove("show", "open", "match");
   }
 }
 
 // NO CLICK ON CARDS DURING MATCHING
-
-
-
-/*
-function cardOpen() {
-    openedCards.push(this);
-    var len = openedCards.length;
-    if(len === 2){
-        moveCounter();
-        if(openedCards[0].type === openedCards[1].type){
-            matched();
-        } else {
-            unmatched();
-        }
-    }
-};
+y
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
 
