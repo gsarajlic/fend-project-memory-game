@@ -46,7 +46,6 @@ function respondToClick(evt) {
       openedCards();
     }, 1000);
   }
-
 }
 
 
@@ -129,7 +128,10 @@ function cleanStart(clean) {
 }
 
 // NO CLICK ON CARDS DURING MATCHING
-y
+
+function disabledClick() {
+
+  }
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
 
