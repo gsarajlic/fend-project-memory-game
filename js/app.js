@@ -10,10 +10,10 @@ let card = cardDeck.children;
 let cards = [...card]
 
 
-
 //  ******************************  S T A R T    G A M E  ******************************
 
 document.body.addEventListener('click', startGame(), true);
+
 
 function startGame() {
 
@@ -40,11 +40,9 @@ function startGame() {
 // CARD RESPOND TO CLICK AND DISPLAY CARD'S SYMBOL
 function respondToClick(evt) {
   if (evt.target.nodeName === 'LI') {
-    evt.target.classList.toggle('open'); // add or remove class open to clicked element
-    evt.target.classList.toggle('show'); // add or remove class show to clicked element
-    setTimeout(function() {
-      openedCards();
-    }, 1000);
+    openedCards(evt.target);
+  } else {
+    console.log('nije li' + evt.target.nodeName);
   }
 }
 
@@ -76,7 +74,6 @@ function shuffle(array) {
 
 
 // REMOVING CLASSES FROM CARDS
-
 function removeClasses(elements) {
   for (var i = 0; i < elements.length; i++) {
     elements[i].classList.remove('open', 'show', 'match');
@@ -84,55 +81,66 @@ function removeClasses(elements) {
 }
 
 // THIS FUNCTION CHECKS IF TWO CARDS MATCH OR NOT
+function openedCards(t) {
 
-function openedCards() {
-  let opened = document.getElementsByClassName('open');
+  // find initially opened cards
+  const initOpened = getOpened();
+  if (initOpened.length < 2) {
+    // open clicked card
+    t.classList.toggle('open'); // add or remove class open to clicked element
+    t.classList.toggle('show'); // add or remove class show to clicked element
+  }
+  else{
+    return;
+  }
+
+  const opened = getOpened();
   if (opened.length == 2) {
+
     var first = opened[0].firstElementChild.className;
     var second = opened[1].firstElementChild.className;
     first === second ? cardsMatch(opened) : cardsNotMatched(opened);
   }
 }
 
-// WHAT TO DO IF CARDS MATCH
 
+// WHAT TO DO IF CARDS MATCH
 function cardsNotMatched(notMatched) {
   var arr = [].slice.call(notMatched);
-  arr.forEach(function(el) {
-    el.classList.toggle('open');
-    el.classList.toggle('show');
-  })
+  setTimeout(function () {
+    arr.forEach(function (el) {
+      el.classList.toggle('open');
+      el.classList.toggle('show');
+    });
+  }, 1100);
+
 }
 
 
-// WHAT TO DI IF CARDS DO NOT MATCH
-
+// WHAT TO DO IF CARDS DO NOT MATCH
 function cardsMatch(matchedElements) {
   var arr = [].slice.call(matchedElements);
-  arr.forEach(function(el) {
+  arr.forEach(function (el) {
     el.classList.toggle('match');
     el.classList.toggle('open');
-  })
+  });
 
 }
 
 // CLEANING CLASSES OF THE WHOLE DECK (restart)
-
 function cleanStart(clean) {
   for (var i = 0; i < clean.length; i++) {
-    [].forEach.call(clean, function(item) {
+    [].forEach.call(clean, function (item) {
       cardDeck.appendChild(item);
     });
     clean[i].classList.remove("show", "open", "match");
   }
 }
 
-// NO CLICK ON CARDS DURING MATCHING
-
-function disabledClick() {
-
-  }
-
+// Opened Cards Array
+function getOpened() {
+  return document.getElementsByClassName('open');
+}
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
 
 

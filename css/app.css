@@ -108,3 +108,9 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+// NO CLICK Styles
+
+.noClick {
+  pointer-events: none;
+}
