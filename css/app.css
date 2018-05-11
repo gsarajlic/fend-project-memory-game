@@ -85,8 +85,12 @@ h1 {
 /*
  * Styles for the Score Panel
  */
-
+.fa-star{
+  font-size: 24px;
+}
 .score-panel {
+    display : flex;
+    justify-content: space-around;
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
@@ -105,12 +109,12 @@ h1 {
 }
 
 .score-panel .restart {
-    float: right;
+    font-size: 24px;
     cursor: pointer;
+    float: right;
 }
 
-// NO CLICK Styles
 
-.noClick {
-  pointer-events: none;
-}
+/* MODAL */
+
+/* MODAL END */

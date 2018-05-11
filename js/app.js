@@ -9,40 +9,42 @@ cardDeck.addEventListener('click', respondToClick);
 let card = cardDeck.children;
 let cards = [...card]
 
+let matchedCards = document.getElementsByClassName("match");
+
+const CCOUNT = 60;
+let t, count;
+
 
 //  ******************************  S T A R T    G A M E  ******************************
 
-document.body.addEventListener('click', startGame(), true);
+document.body.onload = function onLoad(){
+  cdreset();
+  startGame();
+};
+
+function restart(){
+  cdreset();
+  startGame();
+};
 
 
 function startGame() {
-
   cards = shuffle(cards);
   cleanStart(cards);
+  countdown();
 
 
   //this bracket closes startgame function
 }
 
-
-
-
-
-
-
-
 //  *******************************************  F U N C T I O N S  *******************************************
-
-// RESPONDING TO EVERY CLICK AND RUN FUNTIONS
-
-
 
 // CARD RESPOND TO CLICK AND DISPLAY CARD'S SYMBOL
 function respondToClick(evt) {
   if (evt.target.nodeName === 'LI') {
     openedCards(evt.target);
-  } else {
-    console.log('nije li' + evt.target.nodeName);
+    getMatch();
+
   }
 }
 
@@ -141,6 +143,95 @@ function cleanStart(clean) {
 function getOpened() {
   return document.getElementsByClassName('open');
 }
+
+
+// timer  ---- timer taken from http://jsfiddle.net/XcvaE/4/
+// https://stackoverflow.com/questions/7325146/countdown-timer-with-pause-reset
+
+
+
+   function cddisplay() {
+       // displays time in span
+       document.getElementById('timer').innerHTML = count + ' seconds left';
+   };
+
+   function countdown() {
+       // starts countdown
+       cddisplay();
+       if (count == 0) {
+           // time is up
+       } else {
+           count--;
+           t = setTimeout("countdown()", 1000);
+       }
+   };
+
+   function cdpause() {
+       // pauses countdown
+       clearTimeout(t);
+   };
+
+   function cdreset() {
+       // resets countdown
+       cdpause();
+       count = CCOUNT;
+       cddisplay();
+   };
+
+/*
+<body onload="cdreset()">
+<span id="timespan"></span>
+<input type="button" value="Start" onclick="countdown()">
+<input type="button" value="Stop" onclick="cdpause()">
+<input type="button" value="Reset" onclick="cdreset()">
+*/
+
+
+
+
+// Win FUNCTION
+
+function getMatch(){
+  console.log(matchedCards.length);
+  if (matchedCards.length === 16){
+      modal();
+  }
+}
+
+
+// moves
+function moves(){
+  let moves = matchedCards.length % 2;
+  if(moves === 16){
+    console.log ( 'you Win !');
+  } else if(moves < 16){
+    console.log ('you made ' + moves + 'moves');
+  }
+}
+
+
+
+// Modal
+/*
+document.addEventListener('click', function (e) {
+    e = e || window.event;
+    */
+    //var target = e.target || e.srcElement;
+
+function modal(){
+            document.getElementById('simpleModal_1').classList.add('open');
+        }
+
+    // Close modal window with 'data-dismiss' attribute or when the backdrop is clicked
+    document.addEventListener('click', function (e){
+    if(e.target == 'div.modal-window'){
+        function modalClose(){
+        var modal = document.querySelector('[class="modal open"]');
+        modal.classList.remove('open');
+        }
+      }
+    });
+
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
 
 
