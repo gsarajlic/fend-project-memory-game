@@ -222,14 +222,15 @@ function modal(){
             document.getElementById('simpleModal_1').classList.add('open');
         }
 
-    // Close modal window with 'data-dismiss' attribute or when the backdrop is clicked
+    // Close modal window
     document.addEventListener('click', function (e){
-    if(e.target == 'div.modal-window'){
-        function modalClose(){
-        var modal = document.querySelector('[class="modal open"]');
-        modal.classList.remove('open');
+    const modal = document.getElementsByClassName('modal-window');
+    const target = e.target || e.srcElement;
+    if(target == modal[0]){
+      const window = document.getElementById('simpleModal_1');
+      window.classList.remove('open');
+      startGame();
         }
-      }
     });
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
