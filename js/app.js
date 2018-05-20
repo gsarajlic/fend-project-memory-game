@@ -26,6 +26,7 @@ document.body.onload = function onLoad(){
 
 function restart(){
   reset();
+  resetMove()
   startGame();
 };
 
@@ -145,7 +146,7 @@ function getOpened() {
   return document.getElementsByClassName('open');
 }
 
-
+// TIMER
    function display() {
 
        // displays time in span
@@ -208,10 +209,17 @@ function getMatch(){
 
 // moves
 function move() {
-  moves = moves + 1;
-  document.getElementById('moves').innerHTML  = moves + ' moves' ;
+  moves ++
+  document.getElementById('moves').innerHTML  = moves + ' moves';
 }
 
+//moves reset
+function resetMove() {
+  const move = 0;
+  moves = move;
+  document.getElementById('moves').innerHTML  = moves +' moves';
+  move();
+}
 
 
 // Modal
