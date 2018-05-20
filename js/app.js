@@ -11,19 +11,21 @@ let cards = [...card]
 
 let matchedCards = document.getElementsByClassName("match");
 
-const CCOUNT = 60;
-let t, count;
+let seconds = 0;
+let minutes = 0;
+let t;
 
+let moves = 0;
 
 //  ******************************  S T A R T    G A M E  ******************************
 
 document.body.onload = function onLoad(){
-  cdreset();
+  reset();
   startGame();
 };
 
 function restart(){
-  cdreset();
+  reset();
   startGame();
 };
 
@@ -31,7 +33,7 @@ function restart(){
 function startGame() {
   cards = shuffle(cards);
   cleanStart(cards);
-  countdown();
+  timer();
 
 
   //this bracket closes startgame function
@@ -44,7 +46,6 @@ function respondToClick(evt) {
   if (evt.target.nodeName === 'LI') {
     openedCards(evt.target);
     getMatch();
-
   }
 }
 
@@ -98,7 +99,7 @@ function openedCards(t) {
 
   const opened = getOpened();
   if (opened.length == 2) {
-
+    move();
     var first = opened[0].firstElementChild.className;
     var second = opened[1].firstElementChild.className;
     first === second ? cardsMatch(opened) : cardsNotMatched(opened);
@@ -145,37 +146,43 @@ function getOpened() {
 }
 
 
-// timer  ---- timer taken from http://jsfiddle.net/XcvaE/4/
-// https://stackoverflow.com/questions/7325146/countdown-timer-with-pause-reset
+   function display() {
 
-
-
-   function cddisplay() {
        // displays time in span
-       document.getElementById('timer').innerHTML = count + ' seconds left';
-   };
+      if (minutes < 10 && seconds < 10){
+        document.getElementById('timer').innerHTML  = ' Time passed : 0'+ minutes + ' min' +' :  0'+ seconds + ' sec';
+      } else if (minutes < 10 && seconds >= 10){
+        document.getElementById('timer').innerHTML  = ' Time passed : 0'+ minutes + ' min' +' : '+ seconds + ' sec';
+      } else if (minutes >= 10 && seconds >= 10){
+        document.getElementById('timer').innerHTML  = ' Time passed : '+ minutes + ' min' +' : '+ seconds + ' sec';
+      };
+    }
 
-   function countdown() {
+   function timer() {
        // starts countdown
-       cddisplay();
-       if (count == 0) {
-           // time is up
-       } else {
-           count--;
-           t = setTimeout("countdown()", 1000);
+       display();
+       seconds ++;
+       if (seconds >= 60){
+         seconds = seconds - 60
+         minutes ++;
        }
+        // time is up
+        t = setTimeout("timer()", 1000);
    };
 
-   function cdpause() {
+   function pause() {
        // pauses countdown
        clearTimeout(t);
+       seconds = seconds;
+       minutes = minutes;
    };
 
-   function cdreset() {
+   function reset() {
        // resets countdown
-       cdpause();
-       count = CCOUNT;
-       cddisplay();
+       pause();
+       seconds = 0;
+       minutes = 0;
+       display();
    };
 
 /*
@@ -192,46 +199,36 @@ function getOpened() {
 // Win FUNCTION
 
 function getMatch(){
-  console.log(matchedCards.length);
   if (matchedCards.length === 16){
-      modal();
+      modal('modalWin');
+      move(0);
   }
 }
 
 
 // moves
-function moves(){
-  let moves = matchedCards.length % 2;
-  if(moves === 16){
-    console.log ( 'you Win !');
-  } else if(moves < 16){
-    console.log ('you made ' + moves + 'moves');
-  }
+function move() {
+  moves = moves + 1;
+  document.getElementById('moves').innerHTML  = moves + ' moves' ;
 }
 
 
 
 // Modal
-/*
-document.addEventListener('click', function (e) {
-    e = e || window.event;
-    */
-    //var target = e.target || e.srcElement;
-
-function modal(){
-            document.getElementById('simpleModal_1').classList.add('open');
+function modal(evt){
+            document.getElementById(evt).classList.add('open');
+            modalClose(evt)
         }
 
     // Close modal window
-    document.addEventListener('click', function (e){
-    const modal = document.getElementsByClassName('modal-window');
-    const target = e.target || e.srcElement;
-    if(target == modal[0]){
-      const window = document.getElementById('simpleModal_1');
-      window.classList.remove('open');
-      startGame();
-        }
-    });
+    function modalClose(e){
+      document.addEventListener('click', function (e){
+      const modal = e.target.parentElement;
+      modal.classList.remove('open');
+      restart();
+      });
+    }
+
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************
 

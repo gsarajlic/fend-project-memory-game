@@ -10,8 +10,6 @@
   <!-- MODAL files-->
     <link href="css/modal.css" rel="stylesheet">
 
-
-
 </head>
 <body>
 
@@ -27,7 +25,7 @@
         		<li><i class="fa fa-star" id="star3"></i></li>
         	</ul>
 
-          <span class="moves" id="moves">3 Moves</span>
+          <span class="moves" id="moves"></span>
 
           <div class="countdown" id="timer"></div>
 
@@ -36,7 +34,7 @@
           </div>
         </section>
 
-        <button data-target="simpleModal_1" data-toggle="modal">A Basic Modal</button>
+        <button data-target="simpleModal_1" data-toggle="modal" onclick="pause()">A Basic Modal</button>
 
         <ul class="deck" id="deck">
             <li class="card">
@@ -89,9 +87,17 @@
             </li>
         </ul>
 
-          <div id="simpleModal_1" class="modal">
+          <div id="modalWin" class="modal">
               <div class="modal-window">
-                  <h3>A Basic Modal</h3>
+                  <h3>YOU WON !!! CONGRATULATIONS !!!</h3>
+
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+          </div>
+
+          <div id="modalLose" class="modal">
+              <div class="modal-window">
+                  <h3>YOU LOST ! YOU STUPID WOMAN !</h3>
 
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
               </div>
