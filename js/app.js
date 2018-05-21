@@ -14,28 +14,28 @@ let matchedCards = document.getElementsByClassName("match");
 let seconds = 0;
 let minutes = 0;
 let t;
-
+let timerId;
 let moves = 0;
 
 //  ******************************  S T A R T    G A M E  ******************************
 
 document.body.onload = function onLoad(){
-  reset();
   startGame();
+  scheduleTimer();
 };
 
 function restart(){
-  reset();
-  resetMove()
+  clearTimer();
+  resetMove();
   startGame();
+  scheduleTimer();
 };
 
 
 function startGame() {
+  clearTimer();
   cards = shuffle(cards);
   cleanStart(cards);
-  timer();
-
 
   //this bracket closes startgame function
 }
@@ -147,6 +147,7 @@ function getOpened() {
 }
 
 // TIMER
+/*
    function display() {
 
        // displays time in span
@@ -185,7 +186,31 @@ function getOpened() {
        minutes = 0;
        display();
    };
+*/
+function showTime(min, sec){
+	document.getElementById('timer').innerHTML = ('0' + min).slice(-2) +':'+ ('0' + sec).slice(-2);
+}
 
+function scheduleTimer(){
+	if (timerId === null) {
+		let min = 0;
+		let sec = 0;
+		timerId = setInterval(function(){
+	    	sec++;
+	    	if (sec > 59) {
+	        	sec = 0;
+	        	min++;
+	    	}
+	    	showTime(min, sec);
+		}, 1000);
+	}
+}
+
+function clearTimer(){
+	clearInterval(timerId);
+	showTime(0, 0);
+	timerId = null;
+}
 /*
 <body onload="cdreset()">
 <span id="timespan"></span>
@@ -209,16 +234,14 @@ function getMatch(){
 
 // moves
 function move() {
-  moves ++
+  moves ++;
   document.getElementById('moves').innerHTML  = moves + ' moves';
 }
 
 //moves reset
 function resetMove() {
-  const move = 0;
-  moves = move;
+  moves = 0;
   document.getElementById('moves').innerHTML  = moves +' moves';
-  move();
 }
 
 
