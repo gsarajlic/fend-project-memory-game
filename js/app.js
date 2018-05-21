@@ -256,8 +256,8 @@ function modal(evt){
       document.addEventListener('click', function (e){
       const modal = e.target.parentElement;
       modal.classList.remove('open');
-      restart();
       });
+      restart();
     }
 
 
