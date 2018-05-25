@@ -86,13 +86,23 @@ h1 {
  * Styles for the Score Panel
  */
 .fa-star{
-  font-size: 24px;
+  font-size: 30px;
+  color: #FFB300;
 }
+
+.moves{
+  font-size: 20px;
+}
+
+.timer{
+  font-size: 20px;
+}
+
 .score-panel {
     display : flex;
     justify-content: space-around;
     text-align: left;
-    width: 345px;
+    width: 400px;
     margin-bottom: 10px;
 }
 
@@ -109,7 +119,7 @@ h1 {
 }
 
 .score-panel .restart {
-    font-size: 24px;
+    font-size: 30px;
     cursor: pointer;
     float: right;
 }

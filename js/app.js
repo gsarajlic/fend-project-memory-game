@@ -139,6 +139,7 @@ function cleanStart(clean) {
     });
     clean[i].classList.remove("show", "open", "match");
   }
+  starsRestart();
 }
 
 // Opened Cards Array
@@ -146,49 +147,8 @@ function getOpened() {
   return document.getElementsByClassName('open');
 }
 
-// TIMER
-/*
-   function display() {
-
-       // displays time in span
-      if (minutes < 10 && seconds < 10){
-        document.getElementById('timer').innerHTML  = ' Time passed : 0'+ minutes + ' min' +' :  0'+ seconds + ' sec';
-      } else if (minutes < 10 && seconds >= 10){
-        document.getElementById('timer').innerHTML  = ' Time passed : 0'+ minutes + ' min' +' : '+ seconds + ' sec';
-      } else if (minutes >= 10 && seconds >= 10){
-        document.getElementById('timer').innerHTML  = ' Time passed : '+ minutes + ' min' +' : '+ seconds + ' sec';
-      };
-    }
-
-   function timer() {
-       // starts countdown
-       display();
-       seconds ++;
-       if (seconds >= 60){
-         seconds = seconds - 60
-         minutes ++;
-       }
-        // time is up
-        t = setTimeout("timer()", 1000);
-   };
-
-   function pause() {
-       // pauses countdown
-       clearTimeout(t);
-       seconds = seconds;
-       minutes = minutes;
-   };
-
-   function reset() {
-       // resets countdown
-       pause();
-       seconds = 0;
-       minutes = 0;
-       display();
-   };
-*/
 function showTime(min, sec){
-	document.getElementById('timer').innerHTML = ('0' + min).slice(-2) +':'+ ('0' + sec).slice(-2);
+	document.getElementById('timer').innerHTML = 'Time : ' + ('0' + min).slice(-2) +':'+ ('0' + sec).slice(-2);
 }
 
 function scheduleTimer(){
@@ -211,16 +171,6 @@ function clearTimer(){
 	showTime(0, 0);
 	timerId = null;
 }
-/*
-<body onload="cdreset()">
-<span id="timespan"></span>
-<input type="button" value="Start" onclick="countdown()">
-<input type="button" value="Stop" onclick="cdpause()">
-<input type="button" value="Reset" onclick="cdreset()">
-*/
-
-
-
 
 // Win FUNCTION
 
@@ -235,13 +185,18 @@ function getMatch(){
 // moves
 function move() {
   moves ++;
-  document.getElementById('moves').innerHTML  = moves + ' moves';
-}
+  document.getElementById('moves').innerHTML = 'Moves : ' + moves;
+  //  if (moves === 10){
+    //  console.log(moves);
+      stars();
+  //  }
+  }
+
 
 //moves reset
 function resetMove() {
   moves = 0;
-  document.getElementById('moves').innerHTML  = moves +' moves';
+  document.getElementById('moves').innerHTML = 'Moves : ' + moves;
 }
 
 
@@ -259,6 +214,40 @@ function modal(evt){
       });
       restart();
     }
+
+
+// stars
+function stars(){
+let starOne = document.getElementById('starOne');
+let starTwo = document.getElementById('starTwo');
+let starThree = document.getElementById('starThree');
+  if(moves === 10){
+      console.log('StarOne');
+      starOne.classList.remove('fas');
+      starOne.classList.add('far');
+    } else if (moves === 15){
+          console.log('starTwo');
+          starTwo.classList.remove('fas');
+          starTwo.classList.add('far');
+    } else if (moves === 20){
+          console.log('starThree');
+          starThree.classList.remove('fas');
+          starThree.classList.add('far');
+    }
+  }
+
+
+  function starsRestart(){
+    let stars = document.getElementsByName('starRating');
+    for (var i=0; i < stars.length; i++){
+      stars[i].classList.toggle('fas')
+      stars[i].classList.toggle('far')
+    }
+  }
+
+
+
+
 
 
 //  *******************************************  F U N C T I O N S    E N D  *******************************************

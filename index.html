@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Matching Game</title>
     <meta name="description" content="">
-    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
     <link rel="stylesheet" href="css/app.css">
   <!-- MODAL files-->
@@ -19,19 +19,24 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star" id="star1"></i></li>
-        		<li><i class="fa fa-star" id="star2"></i></li>
-        		<li><i class="fa fa-star" id="star3"></i></li>
-        	</ul>
+            <Section class="rating">
+              <ul class="stars">
+            		<li><i class="fas fa-star" id="starOne" name="starRating"></i></li>
+            		<li><i class="fas fa-star" id="starTwo" name="starRating"></i></li>
+            		<li><i class="fas fa-star" id="starThree" name="starRating"></i></li>
+            	</ul>
+            </section>
 
-          <span class="moves" id="moves"></span>
+            <section>
+              <span class="moves" id="moves">Moves : 0</span>
+              <div class="timer" id="timer"></div>
+            </section>
 
-          <div class="countdown" id="timer"></div>
-
-          <div class="restart" onclick="restart()">
-            <i class="fa fa-repeat"></i>
-          </div>
+          <section class="restart">
+              <div class="restart" onclick="restart()">
+              <i class="fas fa-redo-alt"></i>
+              </div>
+          </section>
         </section>
 
         <ul class="deck" id="deck">
