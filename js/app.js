@@ -151,6 +151,7 @@ function showTime(min, sec){
 	document.getElementById('timer').innerHTML = 'Time : ' + ('0' + min).slice(-2) +':'+ ('0' + sec).slice(-2);
 }
 
+
 function scheduleTimer(){
 	if (timerId === null) {
 		let min = 0;
@@ -203,6 +204,7 @@ function resetMove() {
 // Modal
 function modal(evt){
             document.getElementById(evt).classList.add('open');
+            modalWin();
             modalClose(evt)
         }
 
@@ -240,12 +242,15 @@ let starThree = document.getElementById('starThree');
   function starsRestart(){
     let stars = document.getElementsByName('starRating');
     for (var i=0; i < stars.length; i++){
-      stars[i].classList.toggle('fas')
-      stars[i].classList.toggle('far')
+      stars[i].classList.remove('far')
+      stars[i].classList.add('fas')
     }
   }
 
-
+  function modalWin(){
+    let time = document.getElementById('timer').innerHTML;
+  	document.getElementById('modalWintext').innerHTML = 'You finished your game '+ time +' To je to !!!!';
+  }
 
 
 
