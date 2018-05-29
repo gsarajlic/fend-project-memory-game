@@ -11,20 +11,24 @@ let cards = [...card]
 
 let matchedCards = document.getElementsByClassName("match");
 
+// timer variables
 let seconds = 0;
 let minutes = 0;
 let t;
 let timerId;
+
+// moves variable
 let moves = 0;
 
 //  ******************************  S T A R T    G A M E  ******************************
 
-document.body.onload = function onLoad(){
+document.body.onload = function onLoad() {
+  modal('modalStart');
   startGame();
-  scheduleTimer();
 };
 
-function restart(){
+
+function restart() {
   clearTimer();
   resetMove();
   startGame();
@@ -93,8 +97,7 @@ function openedCards(t) {
     // open clicked card
     t.classList.toggle('open'); // add or remove class open to clicked element
     t.classList.toggle('show'); // add or remove class show to clicked element
-  }
-  else{
+  } else {
     return;
   }
 
@@ -111,8 +114,8 @@ function openedCards(t) {
 // WHAT TO DO IF CARDS MATCH
 function cardsNotMatched(notMatched) {
   var arr = [].slice.call(notMatched);
-  setTimeout(function () {
-    arr.forEach(function (el) {
+  setTimeout(function() {
+    arr.forEach(function(el) {
       el.classList.toggle('open');
       el.classList.toggle('show');
     });
@@ -124,7 +127,7 @@ function cardsNotMatched(notMatched) {
 // WHAT TO DO IF CARDS DO NOT MATCH
 function cardsMatch(matchedElements) {
   var arr = [].slice.call(matchedElements);
-  arr.forEach(function (el) {
+  arr.forEach(function(el) {
     el.classList.toggle('match');
     el.classList.toggle('open');
   });
@@ -134,7 +137,7 @@ function cardsMatch(matchedElements) {
 // CLEANING CLASSES OF THE WHOLE DECK (restart)
 function cleanStart(clean) {
   for (var i = 0; i < clean.length; i++) {
-    [].forEach.call(clean, function (item) {
+    [].forEach.call(clean, function(item) {
       cardDeck.appendChild(item);
     });
     clean[i].classList.remove("show", "open", "match");
@@ -147,110 +150,134 @@ function getOpened() {
   return document.getElementsByClassName('open');
 }
 
-function showTime(min, sec){
-	document.getElementById('timer').innerHTML = 'Time : ' + ('0' + min).slice(-2) +':'+ ('0' + sec).slice(-2);
+function showTime(min, sec) {
+  document.getElementById('timer').innerHTML = 'Time : ' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2);
 }
 
 
-function scheduleTimer(){
-	if (timerId === null) {
-		let min = 0;
-		let sec = 0;
-		timerId = setInterval(function(){
-	    	sec++;
-	    	if (sec > 59) {
-	        	sec = 0;
-	        	min++;
-	    	}
-	    	showTime(min, sec);
-		}, 1000);
-	}
+function scheduleTimer() {
+  if (timerId === null) {
+    minutes = 0;
+    seconds = 0;
+    timerId = setInterval(function() {
+      seconds++;
+      if (seconds > 59) {
+        seconds = 0;
+        minutes++;
+      }
+      showTime(minutes, seconds);
+    }, 1000);
+  }
 }
 
-function clearTimer(){
-	clearInterval(timerId);
-	showTime(0, 0);
-	timerId = null;
+function clearTimer() {
+  clearInterval(timerId);
+  showTime(0, 0);
+  timerId = null;
+}
+
+function stopTimer() {
+  clearInterval(timerId);
 }
 
 // Win FUNCTION
 
-function getMatch(){
-  if (matchedCards.length === 16){
-      modal('modalWin');
-      move(0);
+function getMatch() {
+  if (matchedCards.length === 16) {
+    modal('modalWin');
+    move(0);
   }
 }
 
 
-// moves
+// moves function - counts moves
 function move() {
-  moves ++;
+  moves++;
   document.getElementById('moves').innerHTML = 'Moves : ' + moves;
   //  if (moves === 10){
-    //  console.log(moves);
-      stars();
+  //  console.log(moves);
+  stars();
   //  }
-  }
+}
 
 
-//moves reset
+//moves reset - when game is reseted, moves will start count from zero
 function resetMove() {
   moves = 0;
   document.getElementById('moves').innerHTML = 'Moves : ' + moves;
 }
 
 
-// Modal
-function modal(evt){
-            document.getElementById(evt).classList.add('open');
-            modalWin();
-            modalClose(evt)
-        }
-
-    // Close modal window
-    function modalClose(e){
-      document.addEventListener('click', function (e){
-      const modal = e.target.parentElement;
-      modal.classList.remove('open');
-      });
-      restart();
-    }
-
-
-// stars
-function stars(){
-let starOne = document.getElementById('starOne');
-let starTwo = document.getElementById('starTwo');
-let starThree = document.getElementById('starThree');
-  if(moves === 10){
-      console.log('StarOne');
-      starOne.classList.remove('fas');
-      starOne.classList.add('far');
-    } else if (moves === 15){
-          console.log('starTwo');
-          starTwo.classList.remove('fas');
-          starTwo.classList.add('far');
-    } else if (moves === 20){
-          console.log('starThree');
-          starThree.classList.remove('fas');
-          starThree.classList.add('far');
-    }
+// Modal - function - opens modals for start game and finish game
+function modal(evt) {
+  document.getElementById(evt).classList.add('open');
+  switch (evt) {
+    case ('modalStart'):
+      modalStart();
+      modalClose(evt);
+    case ('modalWin'):
+      modalWin();
+      modalClose(evt);
   }
 
+}
 
-  function starsRestart(){
-    let stars = document.getElementsByName('starRating');
-    for (var i=0; i < stars.length; i++){
-      stars[i].classList.remove('far')
-      stars[i].classList.add('fas')
-    }
-  }
+// Close modal window
+function modalClose(e) {
+  document.addEventListener('click', function(e) {
+    const modal = e.target.parentElement;
+    modal.classList.remove('open');
+    scheduleTimer();
+  });
+}
 
-  function modalWin(){
-    let time = document.getElementById('timer').innerHTML;
-  	document.getElementById('modalWintext').innerHTML = 'You finished your game '+ time +' To je to !!!!';
+function modalWin() {
+  stopTimer();
+  let time = document.getElementById('timer').innerHTML;
+  document.getElementById('modalWintext').innerHTML = 'You finished your game ! <br>' + time + '<br>Moves : ' + moves + '<br>With rating :';
+}
+
+function modalStart() {
+  let startText = document.getElementById('modalStartText');
+  startText.innerHTML = 'This is memory card game in which you have to find matching cards.<br> To close this window just click it. <br> GOOD LUCK !';
+}
+
+
+// Rating function - shows stars and disable them based on moves
+function stars() {
+  let starOne = document.getElementsByClassName('starOne');
+  let starTwo = document.getElementsByClassName('starTwo');
+  let starThree = document.getElementsByClassName('starThree');
+  if (moves === 18) {
+    console.log('starOne');
+    toggleStar(starOne);
+  } else if (moves === 22) {
+    console.log('starTwo');
+    toggleStar(starTwo);
+  } else if (moves === 27) {
+    console.log('starThree');
+    toggleStar(starThree);
   }
+}
+
+function toggleStar(starArr){
+  for (var i=0; i < starArr.length; i++) {
+    starArr[i].classList.remove('fas');
+    starArr[i].classList.add('far');
+  }
+}
+
+
+
+
+function starsRestart() {
+  let stars = document.getElementsByName('starRating');
+  for (var i = 0; i < stars.length; i++) {
+    stars[i].classList.remove('far')
+    stars[i].classList.add('fas')
+  }
+}
+
 
 
 
