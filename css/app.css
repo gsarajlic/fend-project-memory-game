@@ -131,6 +131,7 @@ h1 {
   bottom: 0;
   right: 0;
   display: none;
+  cursor: pointer;
   overflow: auto;
   background-color: #000000;
   background-color: rgba(0, 0, 0, 0.7);
