@@ -218,6 +218,9 @@ h3 {
 /* RESPONSIVNESS */
 
 @media only screen and (max-width: 700px) {
+  p {
+    font-size: 22px;
+  }
   .score-panel {
     width: 90%;
   }
