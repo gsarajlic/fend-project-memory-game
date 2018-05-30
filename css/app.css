@@ -36,7 +36,7 @@ h1 {
  */
 
 .deck {
-  width: 660px;
+  max-width: 660px;
   min-height: 680px;
   background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
   padding: 32px;
@@ -171,6 +171,20 @@ h3 {
   margin: 0 5px 0 0;
 }
 
+.modalStars li {
+  list-style: none;
+  display: inline-block;
+}
+
+.modalButton{
+  width: 150px;
+  height: 40px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
 .ratingModal {
   list-style: none;
   display: flex;
@@ -196,4 +210,30 @@ h3 {
   display: block;
 }
 
+
+
 /* MODAL END */
+
+
+/* RESPONSIVNESS */
+
+@media only screen and (max-width: 700px) {
+  .score-panel {
+    width: 90%;
+  }
+  .deck {
+    width: 95%;
+    padding: 16px;
+    min-height: 100vw;
+  }
+  .deck .card {
+    width: 19vw;
+    height: 19vw;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .score-panel {
+    font-size: 20px;
+  }
+}

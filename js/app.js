@@ -29,6 +29,8 @@ document.body.onload = function onLoad() {
 
 
 function restart() {
+  let modalRestart = document.getElementById('modalWin');
+  modalRestart.classList.remove('open');
   clearTimer();
   resetMove();
   startGame();
