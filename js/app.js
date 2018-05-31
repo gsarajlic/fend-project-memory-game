@@ -187,7 +187,7 @@ function stopTimer() {
 function getMatch() {
   if (matchedCards.length === 16) {
     modal('modalWin');
-    move(0);
+    /*move(0);*/
   }
 }
 
@@ -251,13 +251,10 @@ function stars() {
   let starTwo = document.getElementsByClassName('starTwo');
   let starThree = document.getElementsByClassName('starThree');
   if (moves === 18) {
-    console.log('starOne');
     toggleStar(starOne);
   } else if (moves === 22) {
-    console.log('starTwo');
     toggleStar(starTwo);
   } else if (moves === 27) {
-    console.log('starThree');
     toggleStar(starThree);
   }
 }
